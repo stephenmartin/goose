@@ -13,7 +13,6 @@ import { groupSessionsByDate, type DateGroup } from '../../utils/dateUtils';
 import { Skeleton } from '../ui/skeleton';
 import { toast } from 'react-toastify';
 import { Switch } from '../ui/switch';
-import { Label } from '../ui/label';
 
 interface EditSessionModalProps {
   session: Session | null;
@@ -569,9 +568,9 @@ const SessionListView: React.FC<SessionListViewProps> = React.memo(({ onSelectSe
                     onCheckedChange={setHideSchedulerChats}
                     variant="mono"
                   />
-                  <Label htmlFor="hide-scheduler-chats" className="text-sm text-text-muted cursor-pointer">
+                  <label htmlFor="hide-scheduler-chats" className="text-sm text-text-muted cursor-pointer">
                     Hide Scheduler chats
-                  </Label>
+                  </label>
                 </div>
               </div>
               <p className="text-sm text-text-muted mb-4">
