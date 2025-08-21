@@ -238,10 +238,15 @@ const SessionListView: React.FC<SessionListViewProps> = React.memo(({ onSelectSe
         console.log(`ID: ${s.id} | Desc: "${s.metadata.description}" | Schedule_ID: ${s.metadata.schedule_id} | Messages: ${s.metadata.message_count}`);
       });
       
+      // Apply scheduler filtering immediately if enabled to prevent double-load UI glitch
+      const initialFilteredSessions = hideSchedulerChats 
+        ? sessions.filter(session => !isSchedulerSession(session))
+        : sessions;
+      
       // Use startTransition to make state updates non-blocking
       startTransition(() => {
         setSessions(sessions);
-        setFilteredSessions(sessions);
+        setFilteredSessions(initialFilteredSessions);
       });
     } catch (err) {
       console.error('Failed to load sessions:', err);
@@ -251,7 +256,7 @@ const SessionListView: React.FC<SessionListViewProps> = React.memo(({ onSelectSe
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [hideSchedulerChats]);
 
   useEffect(() => {
     loadSessions();
